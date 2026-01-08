@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI University Summit - Session Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.3em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        h2 {
+            color: #1e3a5f;
+            margin: 30px 0 20px 0;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+            font-size: 1.5em;
+        }
+        
+        /* Role Filter Section */
+        .role-filter {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+        
+        .role-filter h3 {
+            margin-bottom: 15px;
+            color: #1e3a5f;
+        }
+        
+        .role-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .role-btn {
+            padding: 12px 20px;
+            border: 2px solid #667eea;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .role-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+        
+        .role-btn.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        /* Schedule Overview */
+        .schedule-overview {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .time-slot {
+            display: grid;
+            grid-template-columns: 140px 1fr auto;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            align-items: center;
+        }
+        
+        .time-slot.breakout { background: #e3f2fd; border-left: 5px solid #1976d2; }
+        .time-slot.lab1 { background: #e8f5e9; border-left: 5px solid #388e3c; }
+        .time-slot.lab2 { background: #fff3e0; border-left: 5px solid #f57c00; }
+        .time-slot.break { background: #f5f5f5; border-left: 5px solid #9e9e9e; }
+        
+        .time {
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+        
+        .session-name {
+            font-weight: 600;
+        }
+        
+        .track-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .track-101 { background: #c8e6c9; color: #2e7d32; }
+        .track-201 { background: #ffe0b2; color: #e65100; }
+        .track-none { background: #e0e0e0; color: #616161; }
+        
+        /* Session Cards */
+        .session-section {
+            margin-bottom: 40px;
+        }
+        
+        .session-header {
+            padding: 20px;
+            border-radius: 12px 12px 0 0;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .session-header.breakout { background: linear-gradient(135deg, #1976d2, #1565c0); }
+        .session-header.lab1 { background: linear-gradient(135deg, #388e3c, #2e7d32); }
+        .session-header.lab2 { background: linear-gradient(135deg, #f57c00, #e65100); }
+        
+        .session-header h3 {
+            font-size: 1.3em;
+        }
+        
+        .session-meta {
+            display: flex;
+            gap: 15px;
+            font-size: 0.9em;
+            opacity: 0.95;
+        }
+        
+        .workshop-list {
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 12px 12px;
+            overflow: hidden;
+        }
+        
+        .workshop-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e0e0e0;
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 15px;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+        
+        .workshop-item:last-child {
+            border-bottom: none;
+        }
+        
+        .workshop-item:hover {
+            background: #f5f5f5;
+        }
+        
+        .workshop-item.student-speaker {
+            background: #fce4ec;
+        }
+        
+        .workshop-item.student-speaker:hover {
+            background: #f8bbd9;
+        }
+        
+        .workshop-item.highlighted {
+            background: #fff9c4;
+            border-left: 4px solid #fbc02d;
+        }
+        
+        .workshop-title {
+            font-weight: 500;
+        }
+        
+        .speaker-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+        }
+        
+        .speaker-student { background: #f8bbd9; color: #c2185b; }
+        .speaker-faculty { background: #b2dfdb; color: #00695c; }
+        .speaker-professional { background: #bbdefb; color: #1565c0; }
+        .speaker-employer { background: #ffe0b2; color: #e65100; }
+        
+        .audience-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            background: #e8eaf6;
+            color: #3f51b5;
+        }
+        
+        /* Role Recommendations */
+        .role-recommendations {
+            display: none;
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 2px solid #4caf50;
+        }
+        
+        .role-recommendations.visible {
+            display: block;
+        }
+        
+        .role-recommendations h3 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+        
+        .recommendation-path {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .path-item {
+            background: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .path-arrow {
+            font-size: 1.5em;
+            color: #4caf50;
+        }
+        
+        /* Legend */
+        .legend {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+        
+        .legend h3 {
+            margin-bottom: 15px;
+            color: #1e3a5f;
+        }
+        
+        .legend-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+            }
+            
+            .role-filter, .role-btn {
+                display: none;
+            }
+            
+            .workshop-item.highlighted {
+                background: white;
+                border-left: none;
+            }
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .time-slot {
+                grid-template-columns: 1fr;
+                gap: 5px;
+            }
+            
+            .workshop-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .session-meta {
+                flex-direction: column;
+                gap: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 AI University Summit</h1>
+            <p>Session Guide: Find Your Path</p>
+        </header>
+        
+        <div class="content">
+            <!-- Role Filter -->
+            <div class="role-filter">
+                <h3>👤 I am a...</h3>
+                <div class="role-buttons">
+                    <button class="role-btn" data-role="all" onclick="filterByRole('all')">Show All</button>
+                    <button class="role-btn" data-role="classified" onclick="filterByRole('classified')">Classified Professional / Staff</button>
+                    <button class="role-btn" data-role="faculty" onclick="filterByRole('faculty')">Faculty / Teacher</button>
+                    <button class="role-btn" data-role="admin" onclick="filterByRole('admin')">Administrator</button>
+                    <button class="role-btn" data-role="employer" onclick="filterByRole('employer')">Employer / Community Partner</button>
+                    <button class="role-btn" data-role="newtoai" onclick="filterByRole('newtoai')">New to AI</button>
+                </div>
+            </div>
+            
+            <!-- Role-specific Recommendations -->
+            <div class="role-recommendations" id="rec-classified">
+                <h3>📋 Recommended Path for Classified Professionals / Staff</h3>
+                <div class="recommendation-path">
+                    <div class="path-item"><strong>10:00am</strong><br>Know Your Why Before AI</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>11:15am</strong><br>AI for the Front Line & Back Office (Part 1)</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>1:45pm</strong><br>AI for the Front Line & Back Office (Part 2)</div>
+                </div>
+            </div>
+            
+            <div class="role-recommendations" id="rec-faculty">
+                <h3>📋 Recommended Path for Faculty / Teachers</h3>
+                <div class="recommendation-path">
+                    <div class="path-item"><strong>10:00am</strong><br>AI & the Law</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>11:15am</strong><br>K-12 Tools (Brisk, PlayLab)</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>1:45pm</strong><br>AI & Program Development</div>
+                </div>
+            </div>
+            
+            <div class="role-recommendations" id="rec-admin">
+                <h3>📋 Recommended Path for Administrators</h3>
+                <div class="recommendation-path">
+                    <div class="path-item"><strong>10:00am</strong><br>Power of Language in AI</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>11:15am</strong><br>What Leaders Should Know: IT in the Era of AI</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>1:45pm</strong><br>Double Diamond Theory for AI Readiness</div>
+                </div>
+            </div>
+            
+            <div class="role-recommendations" id="rec-employer">
+                <h3>📋 Recommended Path for Employer / Community Partners</h3>
+                <div class="recommendation-path">
+                    <div class="path-item"><strong>10:00am</strong><br>Power of Language in AI</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>11:15am</strong><br>AI as an Equalizer</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>1:45pm</strong><br>Envisioning Workflows & AI Ready Processes</div>
+                </div>
+            </div>
+            
+            <div class="role-recommendations" id="rec-newtoai">
+                <h3>📋 Recommended Path for Those New to AI</h3>
+                <div class="recommendation-path">
+                    <div class="path-item"><strong>10:00am</strong><br>Know Your Why Before AI</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>11:15am</strong><br>Any 101 Session (all beginner-friendly)</div>
+                    <span class="path-arrow">→</span>
+                    <div class="path-item"><strong>1:45pm</strong><br>Choose based on interest</div>
+                </div>
+            </div>
+            
+            <!-- Schedule Overview -->
+            <h2>📅 Your Day at a Glance</h2>
+            <div class="schedule-overview">
+                <div class="time-slot break">
+                    <span class="time">8:00 - 9:00 am</span>
+                    <span class="session-name">Breakfast & Networking</span>
+                    <span class="track-badge track-none">—</span>
+                </div>
+                <div class="time-slot break">
+                    <span class="time">9:00 - 10:00 am</span>
+                    <span class="session-name">Welcome & Keynote</span>
+                    <span class="track-badge track-none">—</span>
+                </div>
+                <div class="time-slot breakout">
+                    <span class="time">10:00 - 11:00 am</span>
+                    <span class="session-name">Breakout Lecture Session</span>
+                    <span class="track-badge track-101">101 Track</span>
+                </div>
+                <div class="time-slot break">
+                    <span class="time">11:00 - 11:15 am</span>
+                    <span class="session-name">Break</span>
+                    <span class="track-badge track-none">—</span>
+                </div>
+                <div class="time-slot lab1">
+                    <span class="time">11:15 am - 12:45 pm</span>
+                    <span class="session-name">Lecture/Lab Session #1</span>
+                    <span class="track-badge track-101">101 Track</span>
+                </div>
+                <div class="time-slot break">
+                    <span class="time">12:45 - 1:45 pm</span>
+                    <span class="session-name">Lunch & Student Panel</span>
+                    <span class="track-badge track-none">—</span>
+                </div>
+                <div class="time-slot lab2">
+                    <span class="time">1:45 - 3:15 pm</span>
+                    <span class="session-name">Lecture/Lab Session #2</span>
+                    <span class="track-badge track-201">201 Track</span>
+                </div>
+                <div class="time-slot break">
+                    <span class="time">3:15 - 4:00 pm</span>
+                    <span class="session-name">Share Out & Closing</span>
+                    <span class="track-badge track-none">—</span>
+                </div>
+            </div>
+            
+            <!-- Detailed Sessions -->
+            <h2>📚 Session Details</h2>
+            
+            <!-- Breakout Lecture Session -->
+            <div class="session-section">
+                <div class="session-header breakout">
+                    <h3>Breakout Lecture Session</h3>
+                    <div class="session-meta">
+                        <span>🕐 10:00 - 11:00 am</span>
+                        <span>📝 Lecture Only</span>
+                        <span>🎯 101 Track</span>
+                    </div>
+                </div>
+                <div class="workshop-list">
+                    <div class="workshop-item" data-audiences="general faculty">
+                        <span class="workshop-title">AI & the Law</span>
+                        <span class="speaker-badge speaker-faculty">Faculty</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                    <div class="workshop-item student-speaker" data-audiences="general">
+                        <span class="workshop-title">⭐ Incubating Student Success in the Age of AI</span>
+                        <span class="speaker-badge speaker-student">Student</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="general classified newtoai">
+                        <span class="workshop-title">Know Your Why Before AI</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="general admin employer newtoai">
+                        <span class="workshop-title">Power of Language in AI: Shared Definitions</span>
+                        <span class="speaker-badge speaker-employer">Employer</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lecture/Lab Session #1 -->
+            <div class="session-section">
+                <div class="session-header lab1">
+                    <h3>Lecture/Lab Session #1</h3>
+                    <div class="session-meta">
+                        <span>🕐 11:15 am - 12:45 pm</span>
+                        <span>🔬 Lecture + Hands-On Lab</span>
+                        <span>🎯 101 Track</span>
+                    </div>
+                </div>
+                <div class="workshop-list">
+                    <div class="workshop-item student-speaker" data-audiences="general employer newtoai">
+                        <span class="workshop-title">⭐ AI as an Equalizer: Democratizing Education & Workforce Readiness</span>
+                        <span class="speaker-badge speaker-student">Student</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="classified general">
+                        <span class="workshop-title">AI for the Front Line and Back Office (Part 1)</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">Classified/Staff</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="classified general">
+                        <span class="workshop-title">How to Create Presentations in a Time Crunch Using NotebookLM</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">Classified/Staff</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="faculty general">
+                        <span class="workshop-title">K-12 Tools (Brisk in Google, PlayLab, etc.)</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">Faculty/Teachers</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="admin employer general">
+                        <span class="workshop-title">What Leaders Should Know and Problems to Solve with IT in the Era of AI</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">Admin/Employer</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lecture/Lab Session #2 -->
+            <div class="session-section">
+                <div class="session-header lab2">
+                    <h3>Lecture/Lab Session #2</h3>
+                    <div class="session-meta">
+                        <span>🕐 1:45 - 3:15 pm</span>
+                        <span>🔬 Lecture + Hands-On Lab</span>
+                        <span>🎯 201 Track</span>
+                    </div>
+                </div>
+                <div class="workshop-list">
+                    <div class="workshop-item student-speaker" data-audiences="general">
+                        <span class="workshop-title">⭐ AI Agents: A Tutorial on How Cool and How-to</span>
+                        <span class="speaker-badge speaker-student">Student</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="faculty">
+                        <span class="workshop-title">AI & Program Development</span>
+                        <span class="speaker-badge speaker-faculty">Faculty</span>
+                        <span class="audience-badge">Faculty/Teachers</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="classified general">
+                        <span class="workshop-title">AI for the Front Line and Back Office (Part 2)</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">Classified/Staff</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="admin employer">
+                        <span class="workshop-title">Double Diamond Theory for AI Readiness and Deployment</span>
+                        <span class="speaker-badge speaker-employer">Employer</span>
+                        <span class="audience-badge">Admin/Employers</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="admin general employer">
+                        <span class="workshop-title">Envisioning Workflows and AI Ready Processes</span>
+                        <span class="speaker-badge speaker-employer">Employer</span>
+                        <span class="audience-badge">Admin/General</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="employer general">
+                        <span class="workshop-title">Improve Productivity for Small Business Owners, Educators, and Professionals</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">Employer/Community</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="general">
+                        <span class="workshop-title">PlayLab Chatbots</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                    <div class="workshop-item" data-audiences="general">
+                        <span class="workshop-title">Prompt Battle 201</span>
+                        <span class="speaker-badge speaker-professional">Professional</span>
+                        <span class="audience-badge">General</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Legend -->
+            <div class="legend">
+                <h3>🔑 Key</h3>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <span class="speaker-badge speaker-student">⭐ Student</span>
+                        <span>Student-led session</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="track-badge track-101">101 Track</span>
+                        <span>Beginner-friendly</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="track-badge track-201">201 Track</span>
+                        <span>Intermediate/Advanced</span>
+                    </div>
+                    <div class="legend-item">
+                        <span>📝 Lecture</span>
+                        <span>Presentation-style</span>
+                    </div>
+                    <div class="legend-item">
+                        <span>🔬 Lab</span>
+                        <span>Hands-on practice</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function filterByRole(role) {
+            // Update active button
+            document.querySelectorAll('.role-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.role === role) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            // Show/hide recommendations
+            document.querySelectorAll('.role-recommendations').forEach(rec => {
+                rec.classList.remove('visible');
+            });
+            
+            if (role !== 'all') {
+                const recEl = document.getElementById('rec-' + role);
+                if (recEl) recEl.classList.add('visible');
+            }
+            
+            // Highlight relevant workshops
+            document.querySelectorAll('.workshop-item').forEach(item => {
+                item.classList.remove('highlighted');
+                
+                if (role !== 'all') {
+                    const audiences = item.dataset.audiences || '';
+                    if (audiences.includes(role) || audiences.includes('general')) {
+                        item.classList.add('highlighted');
+                    }
+                }
+            });
+        }
+        
+        // Initialize with "all" selected
+        filterByRole('all');
+    </script>
+</body>
+</html>
